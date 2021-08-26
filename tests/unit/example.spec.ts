@@ -1,12 +1,10 @@
-import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/CodeBrunchCalculator.vue'
+import { render } from '@testing-library/vue'
+import About from '@/views/About.vue'
 
-describe('CodeBrunchCalculator.vue', () => {
+describe('About.vue', () => {
   it('renders props.msg when passed', () => {
-    const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
-      propsData: { msg }
-    })
-    expect(wrapper.text()).toMatch(msg)
+    const about = render(About)
+    about.getByText('Code Brunch Calculator')
+    console.log(about.html())
   })
 })
