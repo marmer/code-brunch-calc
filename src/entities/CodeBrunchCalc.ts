@@ -25,3 +25,7 @@ export interface Event {
   type: EventType
   date: Day
 }
+
+export function toOnlyEventsFrom (smartDays: SmartDay[]): Event[] {
+  return [] // TODO: marmer 27.08.2021 implement
+}

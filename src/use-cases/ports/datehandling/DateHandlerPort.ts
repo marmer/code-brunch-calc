@@ -1,3 +1,4 @@
-import { Day } from '@/entities/CodeBrunchCalc'
+import { Day, SmartDay } from '@/entities/CodeBrunchCalc'
 
-export type getAllDatesInRange = (start: Day, end: Day) => Day[]
+export type getAllDatesInRangePort = (start: Day, end: Day) => Day[]
+export type toSmartDayPort = (day: Day) => SmartDay

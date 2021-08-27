@@ -2,6 +2,7 @@ import { getEvents } from '@/use-cases/EventProvider'
 import { Day, Event } from '@/entities/CodeBrunchCalc'
 
 // TODO: marmer 27.08.2021 Holiday exclusions
+// TODO: marmer 27.08.2021 Pass CodebrunchStartEventType
 
 describe('EventProvider', () => {
   it('should serve all necessary events within range', async () => {
