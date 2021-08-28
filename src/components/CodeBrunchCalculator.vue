@@ -17,8 +17,10 @@
         </b-form-group>
       </b-col>
     </b-row>
-    <b-form-input v-model="fancyValue" type="text"></b-form-input>
-    <b-button @click="addSomethingToTheValue()">Add something to the fancyValue</b-button>
+    <b-form-input :value="fancyValue" type="text"></b-form-input>
+    <div>
+      Value: {{ fancyValue }}
+    </div>
   </b-container>
 </template>
 
@@ -27,12 +29,11 @@ import { Component, Vue } from 'vue-property-decorator'
 
 @Component
 export default class CodeBrunchCalculator extends Vue {
-  private fancyValue = '42'
   private startDate = '2021-01-01' // TODO: marmer 26.08.2021 First day of current year
   private endDate = '2021-12-31' // TODO: marmer 26.08.2021 Last day of current year
 
-  addSomethingToTheValue (): void {
-    this.fancyValue = this.fancyValue + 'noch was'
+  get fancyValue (): string {
+    return `${this.startDate} - ${this.endDate}`
   }
 }
 </script>
