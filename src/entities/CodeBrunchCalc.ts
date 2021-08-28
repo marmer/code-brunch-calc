@@ -31,9 +31,8 @@ function getAllDaysBetween (from: Date, to: Date, predicate: Predicate<Date>): D
   if (endReached) {
     return []
   } else {
-    const result: Date[] = [from]
     return predicate(from)
-      ? result.concat(getAllDaysBetween(dayAfter(from), to, predicate))
+      ? [from].concat(getAllDaysBetween(dayAfter(from), to, predicate))
       : getAllDaysBetween(dayAfter(from), to, predicate)
   }
 }
