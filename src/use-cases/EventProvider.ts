@@ -1,6 +1,10 @@
-import { Day, Event, toOnlyEventsFrom } from '@/entities/CodeBrunchCalc'
+import { Event, toOnlyEventsFrom } from '@/entities/CodeBrunchCalc'
 
-export function getEvents (range: { start: Day, end: Day }): Event[] {
-  return toOnlyEventsFrom(getAllDatesInRange(range.start, range.end)
-    .map(toSmartDay)) // TODO: marmer 27.08.2021 Pass Exclusions (Holidays)
+function getAllDatesInRange (start: Date, end: Date) {
+  return []
+}
+
+// TODO: marmer 28.08.2021 Extend the interface of business logic for a range instead of a single date. Range calculation should be simple enough
+export function getEvents (range: { start: Date, end: Date }): Event[] {
+  return toOnlyEventsFrom(getAllDatesInRange(range.start, range.end)) // TODO: marmer 27.08.2021 Pass Exclusions (Holidays)
 }
