@@ -10,7 +10,7 @@ export enum Weekday {
 
 export type EventType = 'InnovationFriday' | 'CodeBrunch'
 
-export interface Event {
+export interface CompanyEvent {
   type: EventType
   date: Date
 }
@@ -36,7 +36,7 @@ function getAllDays (from: Date, to: Date): Date[] {
   }
 }
 
-export function toOnlyEventsFrom (from: Date, to: Date): Event[] {
+export function toOnlyEventsFrom (from: Date, to: Date): CompanyEvent[] {
   return getAllDays(from, to).filter(it => it.getDay() === Weekday.FRIDAY)
     .map(it => ({
       type: isLastWeekdayInMonth(it) ? 'InnovationFriday' : 'CodeBrunch',
