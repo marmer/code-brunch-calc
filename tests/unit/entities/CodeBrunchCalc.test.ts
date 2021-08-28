@@ -22,4 +22,12 @@ describe('@/entities/CodeBrunchCalc', () => {
         date: new Date(2021, 7, 27)
       }])
   })
+
+  it('should be able to handle dates with smaller fields than days', async () => {
+    expect(toOnlyEventsFrom(new Date(2021, 7, 27, 1), new Date(2021, 7, 27, 2)))
+      .toStrictEqual<CompanyEvent[]>([{
+        type: 'InnovationFriday',
+        date: new Date(2021, 7, 27)
+      }])
+  })
 })

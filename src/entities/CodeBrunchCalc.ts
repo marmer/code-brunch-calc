@@ -49,6 +49,6 @@ const toCompanyEvent = (it: Date): CompanyEvent => ({
 })
 
 export function toOnlyEventsFrom (from: Date, to: Date): CompanyEvent[] {
-  return getAllFridaysBetween(from, to)
+  return getAllFridaysBetween(new Date(from.getFullYear(), from.getMonth(), from.getDate()), new Date(to.getFullYear(), to.getMonth(), to.getDate()))
     .map(toCompanyEvent)
 }
