@@ -27,5 +27,9 @@ export interface Event {
 }
 
 export function toOnlyEventsFrom (smartDays: SmartDay[]): Event[] {
-  return [] // TODO: marmer 27.08.2021 implement
+  return smartDays.filter(it => it.weekday === Weekday.FRIDAY)
+    .map(it => ({
+      type: it.isLastWeekdayInMonth ? 'InnovationFriday' : 'CodeBrunch',
+      date: { ...it }
+    }))
 }
