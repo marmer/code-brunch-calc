@@ -15,31 +15,41 @@ export interface CompanyEvent {
   date: Date
 }
 
-function isLastWeekdayInMonth (date: Date) {
-  return date.getMonth() !== new Date(date.getFullYear(), date.getMonth(), date.getDate() + 7).getMonth()
+const isLastWeekdayInMonth = (date: Date) =>
+  date.getMonth() !== new Date(date.getFullYear(), date.getMonth(), date.getDate() + 7).getMonth()
+
+const dayAfter = (from: Date) => {
+  const nextDay = new Date(from.valueOf())
+  nextDay.setDate(from.getDate() + 1)
+  return nextDay
 }
 
-function dayAfter (from: Date) {
-  const dayAfter = new Date(from.valueOf())
-  dayAfter.setDate(from.getDate() + 1)
-  return dayAfter
-}
+type Predicate<T> = (value: T) => boolean;
 
-// TODO: marmer 28.08.2021 no need to serve all. Pass some predicate
-function getAllDays (from: Date, to: Date): Date[] {
+function getAllDaysBetween (from: Date, to: Date, predicate: Predicate<Date>): Date[] {
   const endReached = from.valueOf() - to.valueOf() > 0
   if (endReached) {
     return []
   } else {
     const result: Date[] = [from]
-    return result.concat(getAllDays(dayAfter(from), to))
+    return predicate(from)
+      ? result.concat(getAllDaysBetween(dayAfter(from), to, predicate))
+      : getAllDaysBetween(dayAfter(from), to, predicate)
   }
 }
 
+const isFriday = (it: Date) =>
+  it.getDay() === Weekday.FRIDAY
+
+const getAllFridaysBetween = (from: Date, to: Date) =>
+  getAllDaysBetween(from, to, isFriday)
+
+const toCompanyEvent = (it: Date): CompanyEvent => ({
+  type: isLastWeekdayInMonth(it) ? 'InnovationFriday' : 'CodeBrunch',
+  date: new Date(it.valueOf())
+})
+
 export function toOnlyEventsFrom (from: Date, to: Date): CompanyEvent[] {
-  return getAllDays(from, to).filter(it => it.getDay() === Weekday.FRIDAY)
-    .map(it => ({
-      type: isLastWeekdayInMonth(it) ? 'InnovationFriday' : 'CodeBrunch',
-      date: new Date(it.valueOf())
-    }))
+  return getAllFridaysBetween(from, to)
+    .map(toCompanyEvent)
 }
