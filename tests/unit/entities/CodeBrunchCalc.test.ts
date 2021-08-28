@@ -1,77 +1,24 @@
-import { SmartDay, toOnlyEventsFrom, Weekday } from '@/entities/CodeBrunchCalc'
+import { toOnlyEventsFrom } from '@/entities/CodeBrunchCalc'
 
 describe('@/entities/CodeBrunchCalc', () => {
-  const baseDay: SmartDay = {
-    day: 1,
-    month: 2,
-    year: 3,
-    weekday: Weekday.SATURDAY,
-    isLastWeekdayInMonth: true
-  }
-
   it('should serve all event kinds for the given dates', async () => {
-    const monday = {
-      ...baseDay,
-      day: 1,
-      weekday: Weekday.MONDAY,
-      isLastWeekdayInMonth: false
-    }
-    const tuesday = {
-      ...baseDay,
-      day: 2,
-      weekday: Weekday.TUESDAY,
-      isLastWeekdayInMonth: false
-    }
-    const wednesday = {
-      ...baseDay,
-      day: 3,
-      weekday: Weekday.WEDNESDAY,
-      isLastWeekdayInMonth: false
-    }
-    const thursday = {
-      ...baseDay,
-      day: 4,
-      weekday: Weekday.THURSDAY,
-      isLastWeekdayInMonth: false
-    }
-    const friday = {
-      ...baseDay,
-      day: 5,
-      weekday: Weekday.FRIDAY,
-      isLastWeekdayInMonth: false
-    }
-    const saturday = {
-      ...baseDay,
-      day: 6,
-      weekday: Weekday.SATURDAY,
-      isLastWeekdayInMonth: false
-    }
-    const sunday = {
-      ...baseDay,
-      day: 7,
-      weekday: Weekday.SUNDAY,
-      isLastWeekdayInMonth: false
-    }
+    const monday = new Date(2021, 7, 16)
+    const tuesday = new Date(2021, 7, 17)
+    const wednesday = new Date(2021, 7, 18)
+    const thursday = new Date(2021, 7, 19)
+    const friday = new Date(2021, 7, 20)
+    const saturday = new Date(2021, 7, 21)
+    const sunday = new Date(2021, 7, 22)
 
-    const lastFriday = {
-      ...baseDay,
-      day: 8,
-      weekday: Weekday.FRIDAY,
-      isLastWeekdayInMonth: true
-    }
-    const lastsSaturday = {
-      ...baseDay,
-      day: 9,
-      weekday: Weekday.SATURDAY,
-      isLastWeekdayInMonth: true
-    }
+    const lastFriday = new Date(2021, 7, 27)
+    const lastsSaturday = new Date(2021, 7, 28)
     expect(toOnlyEventsFrom([monday, tuesday, wednesday, thursday, friday, saturday, sunday, lastFriday, lastsSaturday]))
       .toStrictEqual([{
         type: 'CodeBrunch',
-        date: { ...friday }
+        date: friday
       }, {
         type: 'InnovationFriday',
-        date: { ...lastFriday }
+        date: lastFriday
       }])
   })
 })

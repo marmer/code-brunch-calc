@@ -1,35 +1,28 @@
 export enum Weekday {
-  MONDAY = 'MONDAY',
-  TUESDAY = 'TUESDAY',
-  WEDNESDAY = 'WEDNESDAY',
-  THURSDAY = 'THURSDAY',
-  FRIDAY = 'FRIDAY',
-  SATURDAY = 'SATURDAY',
-  SUNDAY = 'SUNDAY',
-}
-
-export interface Day {
-  day: number,
-  month: number,
-  year: number,
-}
-
-export interface SmartDay extends Day {
-  weekday: Weekday,
-  isLastWeekdayInMonth: boolean
+  SUNDAY,
+  MONDAY,
+  TUESDAY,
+  WEDNESDAY,
+  THURSDAY,
+  FRIDAY,
+  SATURDAY,
 }
 
 export type EventType = 'InnovationFriday' | 'CodeBrunch'
 
 export interface Event {
   type: EventType
-  date: Day
+  date: Date
 }
 
-export function toOnlyEventsFrom (smartDays: SmartDay[]): Event[] {
-  return smartDays.filter(it => it.weekday === Weekday.FRIDAY)
+function isLastWeekdayInMonth (date: Date) {
+  return date.getMonth() !== new Date(date.getFullYear(), date.getMonth(), date.getDate() + 7).getMonth()
+}
+
+export function toOnlyEventsFrom (days: Date[]): Event[] {
+  return days.filter(it => it.getDay() === Weekday.FRIDAY)
     .map(it => ({
-      type: it.isLastWeekdayInMonth ? 'InnovationFriday' : 'CodeBrunch',
-      date: { ...it }
+      type: isLastWeekdayInMonth(it) ? 'InnovationFriday' : 'CodeBrunch',
+      date: new Date(it.valueOf())
     }))
 }
