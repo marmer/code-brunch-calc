@@ -10,4 +10,14 @@ describe('My First Test', () => {
     cy.findByText('Home')
       .click()
   })
+
+  it('should be a not existing tests', async () => {
+    cy.findByLabelText('Start Date')
+      .click()
+    cy.findByText(13).click()
+    cy.findByLabelText('End Date')
+      .click()
+    cy.findByText(14)
+      .click()
+  })
 })

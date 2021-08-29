@@ -2,17 +2,21 @@
 <span>
       <b-row>
       <b-col>
-        <b-form-group label="start">
+        <b-form-group label="Start Date" label-for="startDate">
           <b-form-datepicker
+            id="startDate"
             v-model="value.startDate"
-            locale="de" start-weekday="0"/>
+            start-weekday="0"
+            title="Start Date"/>
         </b-form-group>
       </b-col>
       <b-col>
-        <b-form-group label="end">
+        <b-form-group label="End Date" label-for="endDate">
           <b-form-datepicker
+            id="endDate"
             v-model="value.endDate"
-            locale="de" start-weekday="0"/>
+            start-weekday="0"
+            title="End Date"/>
         </b-form-group>
       </b-col>
     </b-row>
