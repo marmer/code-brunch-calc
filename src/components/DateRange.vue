@@ -7,7 +7,8 @@
             id="startDate"
             v-model="value.startDate"
             start-weekday="0"
-            title="Start Date"/>
+            title="Start Date"
+            value-as-date/>
         </b-form-group>
       </b-col>
       <b-col>
@@ -16,7 +17,8 @@
             id="endDate"
             v-model="value.endDate"
             start-weekday="0"
-            title="End Date"/>
+            title="End Date"
+            value-as-date/>
         </b-form-group>
       </b-col>
     </b-row>
