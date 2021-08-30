@@ -6,25 +6,19 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/events',
-    name: 'Home',
-    component: Home
-  },
-  {
     path: '/about',
     name: 'About',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '/*',
+    name: 'Home',
+    component: Home
   }
 ]
-// TODO: marmer 30.08.2021 handle non existing Routes
 
 const router = new VueRouter({
   mode: 'history',

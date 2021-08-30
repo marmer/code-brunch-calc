@@ -15,11 +15,11 @@ import formatISO from 'date-fns/formatISO'
 @Component
 export default class CompanyEventTable extends Vue {
   @Prop() private range!: {
-    startDate: string,
-    endDate: string
+    startDate: Date,
+    endDate: Date
   }
 
-  get companyEvents () {
+  get companyEvents (): Array<{ date: string, eventType: string }> {
     return getEvents(this.range).map(it => ({
       date: formatISO(it.date, { representation: 'date' }),
       eventType: it.type
