@@ -1,6 +1,5 @@
 <template>
   <b-container>
-    <b-button @click="changeRoute">Query Param Value: {{ this.query }}</b-button>
     <CodeBrunchCalculator/>
   </b-container>
 </template>
@@ -16,7 +15,7 @@ import { Route } from 'vue-router'
   }
 })
 export default class Home extends Vue {
-  private query: string = this.$route.query.query
+  private query?: string = this.$route.query.query
 
   mounted () {
     console.log('Mounted: ' + this.query)
