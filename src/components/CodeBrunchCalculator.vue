@@ -22,6 +22,7 @@ export default class CodeBrunchCalculator extends Vue {
     endDate: new Date(2021, 11, 31)
   }
 
+  // TODO: marmer 30.08.2021 Use selected range in URL
   get fancyValue (): string {
     return `${this.range.startDate} - ${this.range.endDate}`
   }

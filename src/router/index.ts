@@ -11,6 +11,11 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
+    path: '/events',
+    name: 'Home',
+    component: Home
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting
@@ -19,6 +24,7 @@ const routes: Array<RouteConfig> = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
 ]
+// TODO: marmer 30.08.2021 handle non existing Routes
 
 const router = new VueRouter({
   mode: 'history',
