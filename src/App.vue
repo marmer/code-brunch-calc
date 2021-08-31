@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div>
+    <header>
       <b-navbar toggleable="lg" type="dark" variant="info">
         <b-navbar-brand href="#">CoBr</b-navbar-brand>
 
@@ -17,10 +17,10 @@
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
-    </div>
-    <b-container>
+    </header>
+    <main>
       <router-view/>
-    </b-container>
+    </main>
   </div>
 </template>
 
