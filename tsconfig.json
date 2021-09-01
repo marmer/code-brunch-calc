@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "esnext",
+    "module": "commonjs",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -15,8 +15,12 @@
     "types": [
       "webpack-env",
       "jest",
+      "node",
       "cypress",
       "@testing-library/cypress"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
     ],
     "paths": {
       "@/*": [

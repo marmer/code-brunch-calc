@@ -12,6 +12,7 @@ import CompanyEventTable from '@/components/CompanyEventTable.vue'
 import { Route } from 'vue-router'
 import formatISO from 'date-fns/formatISO'
 import { parseISO } from 'date-fns'
+import { DateRange as Range } from '@/use-cases/CompanyEventsProvider'
 
 @Component({
   components: {
@@ -55,7 +56,7 @@ export default class CodeBrunchCalculator extends Vue {
   onRangeChange ({
     startDate,
     endDate
-  }: DateRange): void {
+  }: Range): void {
     const oldQuery = this.$route.query
     const newQuery = {
       ...this.$route.query,
