@@ -14,6 +14,8 @@ import formatISO from 'date-fns/formatISO'
 import { parseISO } from 'date-fns'
 import { DateRange as Range } from '@/use-cases/CompanyEventsProvider'
 
+const currentYear = new Date().getFullYear()
+
 @Component({
   components: {
     DateRange,
@@ -22,11 +24,11 @@ import { DateRange as Range } from '@/use-cases/CompanyEventsProvider'
 })
 export default class CodeBrunchCalculator extends Vue {
   get defaultStartDate (): Date {
-    return new Date(2021, 0, 1)
+    return new Date(currentYear, 0, 1)
   }
 
   get defaultEndDate (): Date {
-    return new Date(2021, 11, 31)
+    return new Date(currentYear, 11, 31)
   }
 
   private range = {
