@@ -78,7 +78,7 @@ describe('App Tests', () => {
     cy.findByLabelText('End Date')
       .click()
     cy.findByText(14)
-      .click()
+    .click()
 
     const currentYear = new Date().getFullYear()
 
@@ -87,4 +87,8 @@ describe('App Tests', () => {
       expect(loc.search).to.eq(`?startDate=${currentYear}-01-13&endDate=${currentYear}-12-14`)
     })
   })
+
+  // TODO: marmer 01.09.2021 some kind of cobra as icon
+  // TODO: marmer 01.09.2021 holiday exclusions
+  // TODO: marmer 01.09.2021 Topics
 })
