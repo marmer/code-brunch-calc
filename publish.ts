@@ -1,4 +1,4 @@
-import fs from 'fs'
+import * as fs from 'fs'
 
 import simpleGit, { SimpleGit } from 'simple-git'
 
@@ -16,4 +16,5 @@ const git: SimpleGit = simpleGit();
       console.error(err)
     }
   })
+  console.log('Production build ready to rollout (just commit and push to master)')
 })()

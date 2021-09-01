@@ -4,5 +4,7 @@
  * @type {import('@vue/cli-service').ProjectOptions}
  */
 module.exports = {
-  publicPath: '/code-brunch-calc'
+  publicPath: process.env.NODE_ENV === 'production' && !process.env.CYPRESS
+    ? '/code-brunch-calc'
+    : '/'
 }
