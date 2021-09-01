@@ -29,6 +29,7 @@
     "date-fns": "^2.23.0"
   },
   "devDependencies": {
+    "simple-git": "^2.45.0",
     "ts-node": "^10.2.1",
     "@testing-library/cypress": "^8.0.0",
     "@testing-library/jest-dom": "^5.14.1",
