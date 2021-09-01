@@ -6,9 +6,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 import DateRange from '@/components/DateRange.vue'
 import CompanyEventTable from '@/components/CompanyEventTable.vue'
+import { Route } from 'vue-router'
+import formatISO from 'date-fns/formatISO'
+import { parseISO } from 'date-fns'
 
 @Component({
   components: {
@@ -17,14 +20,53 @@ import CompanyEventTable from '@/components/CompanyEventTable.vue'
   }
 })
 export default class CodeBrunchCalculator extends Vue {
-  private range = {
-    startDate: new Date(2021, 0, 1),
-    endDate: new Date(2021, 11, 31)
+  get defaultStartDate (): Date {
+    return new Date(2021, 0, 1)
   }
 
-  // TODO: marmer 30.08.2021 Use selected range in URL
-  get fancyValue (): string {
-    return `${this.range.startDate} - ${this.range.endDate}`
+  get defaultEndDate (): Date {
+    return new Date(2021, 11, 31)
+  }
+
+  private range = {
+    startDate: this.defaultStartDate,
+    endDate: this.defaultEndDate
+  }
+
+  @Watch('$route', {
+    immediate: true,
+    deep: true
+  })
+  onUrlChange ({
+    query: {
+      startDate,
+      endDate
+    }
+  }: Route): void {
+    this.range = {
+      startDate: typeof startDate === 'string' ? parseISO(startDate) : this.defaultStartDate,
+      endDate: typeof endDate === 'string' ? parseISO(endDate) : this.defaultEndDate
+    }
+  }
+
+  @Watch('range', {
+    deep: true
+  })
+  onRangeChange ({
+    startDate,
+    endDate
+  }: DateRange): void {
+    const oldQuery = this.$route.query
+    const newQuery = {
+      ...this.$route.query,
+      startDate: formatISO(startDate, { representation: 'date' }),
+      endDate: formatISO(endDate, { representation: 'date' })
+    }
+    if (JSON.stringify(oldQuery) !== JSON.stringify(newQuery)) {
+      this.$router.push({
+        query: newQuery
+      })
+    }
   }
 }
 </script>

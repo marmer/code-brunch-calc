@@ -44,7 +44,7 @@ describe('App Tests', () => {
     cy.findByText('2021-08-27')
       .parent()
       .within(() => {
-        cy.findByText('Code Brunch')
+        cy.findByText('Innovation Friday')
           .should('exist')
       })
   })
@@ -59,7 +59,7 @@ describe('App Tests', () => {
       })
     cy.findByText('2021-01-15').should('not.exist')
 
-    cy.visit('/events?startDate=2021-01-08&endDate=2021-01-15')
+    cy.visit('/events?startDate=2021-01-15&endDate=2021-01-15')
     cy.findByText('2021-01-15')
       .parent()
       .within(() => {
@@ -67,5 +67,24 @@ describe('App Tests', () => {
           .should('exist')
       })
     cy.findByText('2021-01-08').should('not.exist')
+  })
+
+  it('should date changes should be reflected to the url', () => {
+    cy.visit('/')
+    cy.findByLabelText('Start Date')
+      .click()
+    cy.findByText(13)
+      .click()
+    cy.findByLabelText('End Date')
+      .click()
+    cy.findByText(14)
+      .click()
+
+    const currentYear = new Date().getFullYear()
+
+    cy.location().should((loc) => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      expect(loc.search).to.eq(`?startDate=${currentYear}-01-13&endDate=${currentYear}-12-14`)
+    })
   })
 })

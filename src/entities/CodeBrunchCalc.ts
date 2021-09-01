@@ -8,10 +8,10 @@ export enum Weekday {
   SATURDAY,
 }
 
-export type EventType = 'InnovationFriday' | 'CodeBrunch'
+export type CompanyEventType = 'InnovationFriday' | 'CodeBrunch'
 
 export interface CompanyEvent {
-  type: EventType
+  type: CompanyEventType
   date: Date
 }
 
