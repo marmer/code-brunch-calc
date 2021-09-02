@@ -76,7 +76,7 @@ describe('App Tests', () => {
     cy.findByText(13)
       .click()
     cy.findByLabelText('End Date')
-      .click()
+    .click()
     cy.findByText(14)
     .click()
 
@@ -90,5 +90,7 @@ describe('App Tests', () => {
 
   // TODO: marmer 01.09.2021 some kind of cobra as icon
   // TODO: marmer 01.09.2021 holiday exclusions
+  // TODO: marmer 02.09.2021 store allready fetched holyday exclusions
   // TODO: marmer 01.09.2021 Topics
+  // TODO: marmer 01.09.2021 Ability to format the dates to the german style
 })
