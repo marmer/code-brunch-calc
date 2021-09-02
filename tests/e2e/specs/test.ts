@@ -76,9 +76,9 @@ describe('App Tests', () => {
     cy.findByText(13)
       .click()
     cy.findByLabelText('End Date')
-    .click()
+      .click()
     cy.findByText(14)
-    .click()
+      .click()
 
     const currentYear = new Date().getFullYear()
 
