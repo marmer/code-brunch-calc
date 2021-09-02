@@ -2,6 +2,6 @@ import { CompanyEvent, toOnlyEventsFrom } from '@/use-cases/domain/CodeBrunchCal
 
 export type DateRange = { startDate: Date, endDate: Date }
 
-export function getEvents (range: DateRange): CompanyEvent[] {
+export async function getEvents (range: DateRange): Promise<CompanyEvent[]> {
   return toOnlyEventsFrom(range.startDate, range.endDate)
 }

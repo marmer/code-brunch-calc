@@ -20,11 +20,16 @@ export default class CompanyEventTable extends Vue {
     endDate: Date
   }
 
-  get companyEvents (): Array<{ date: string, eventType: string }> {
-    return getEvents(this.range).map(it => ({
-      date: formatISO(it.date, { representation: 'date' }),
-      eventType: toTypeDisplayValue(it.type)
-    }))
+  private companyEvents: Array<{ date: string, eventType: string }> = []
+
+  mounted () {
+    getEvents(this.range)
+      .then(companyEvents => {
+        this.companyEvents = companyEvents.map((it) => ({
+          date: formatISO(it.date, { representation: 'date' }),
+          eventType: toTypeDisplayValue(it.type)
+        }))
+      })
   }
 }
 
