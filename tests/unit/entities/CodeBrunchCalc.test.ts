@@ -1,4 +1,4 @@
-import { CompanyEvent, toOnlyEventsFrom } from '@/entities/CodeBrunchCalc'
+import { CompanyEvent, toOnlyEventsFrom } from '@/domain/CodeBrunchCalc'
 
 describe('@/entities/CodeBrunchCalc', () => {
   it('should serve all kinds of events for the given dates', async () => {

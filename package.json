@@ -29,6 +29,7 @@
     "date-fns": "^2.23.0"
   },
   "devDependencies": {
+    "node-localstorage": "^2.2.1",
     "cross-env": "^7.0.3",
     "simple-git": "^2.45.0",
     "ts-node": "^10.2.1",

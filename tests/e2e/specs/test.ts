@@ -98,8 +98,6 @@ describe('App Tests', () => {
 
     cy.visit('/events?startDate=2021-09-10&endDate=2021-09-24')
 
-    cy.findByText('2021-01-17').should('exist')
-    cy.wait('@holidayCall')
     cy.findByText('2021-01-17').should('not.exist')
 
     cy.findByText('2021-09-10')
