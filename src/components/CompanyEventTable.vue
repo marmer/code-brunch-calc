@@ -11,7 +11,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { getEvents } from '@/use-cases/CompanyEventsProvider'
 import formatISO from 'date-fns/formatISO'
-import { CompanyEventType } from '@/domain/CodeBrunchCalc'
+import { CompanyEventType } from '@/use-cases/domain/CodeBrunchCalc'
 
 @Component
 export default class CompanyEventTable extends Vue {

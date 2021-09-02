@@ -1,4 +1,4 @@
-import { CompanyEvent, toOnlyEventsFrom } from '@/domain/CodeBrunchCalc'
+import { CompanyEvent, toOnlyEventsFrom } from '@/use-cases/domain/CodeBrunchCalc'
 
 export type DateRange = { startDate: Date, endDate: Date }
 
