@@ -2,7 +2,11 @@
   <div id="app">
     <header>
       <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand href="#">CoBr</b-navbar-brand>
+        <b-navbar-brand href="#">
+          <img src="/img/icons/android-chrome-maskable-192x192.png" alt="" width="30" height="30"
+               class="d-inline-block align-text-top">
+          CoBr
+        </b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
