@@ -30,4 +30,14 @@ describe('@/entities/CodeBrunchCalc', () => {
         date: new Date(2021, 7, 27)
       }])
   })
+
+  it('should exclude given exclusions', async () => {
+    const monday = new Date(2021, 7, 16)
+    const lastsSaturday = new Date(2021, 7, 28)
+    expect(toOnlyEventsFrom(monday, lastsSaturday, [new Date(2021, 7, 27)]))
+      .toStrictEqual<CompanyEvent[]>([{
+        type: 'CodeBrunch',
+        date: new Date(2021, 7, 20)
+      }])
+  })
 })
