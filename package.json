@@ -12,7 +12,7 @@
     "lint": "vue-cli-service lint",
     "lint:fix": "vue-cli-service lint --fix",
     "prepublish_preparation": "npm run build",
-    "publish_preparation": "ts-node publish.ts"
+    "publish_preparation": "ts-node build/publish.ts"
   },
   "dependencies": {
     "bootstrap": "^5.1.0",
