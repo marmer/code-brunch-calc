@@ -56,7 +56,7 @@ describe('CompanyEventsProvider', () => {
       const result = await getEvents(range)
 
       // Assertion
-      expect([]).toStrictEqual([])
+      expect(result).toStrictEqual([])
     })
   })
 })

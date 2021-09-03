@@ -13,11 +13,9 @@ function getYearsOf ({
   startDate,
   endDate
 }: DateRange): number[] {
-  const fromInclusive = startDate.getFullYear()
-  const toInclusive = endDate.getFullYear()
   return getRangeFrom(
-    fromInclusive < toInclusive ? fromInclusive : toInclusive,
-    fromInclusive < toInclusive ? toInclusive : fromInclusive)
+    startDate.getFullYear(),
+    endDate.getFullYear())
 }
 
 async function getExclusionsFor (range: DateRange): Promise<Date[]> {
