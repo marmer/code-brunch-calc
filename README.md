@@ -1,34 +1,8 @@
 # code-brunch-calc
 
-## Project setup
-```
-npm install
-```
+This is a playground project. Used to find all dates for "Code Brunch" and "Innovation Fridays" of
+my current company. The Rules are smiple. If there is no holyday then every Software Developer can
+go to the code brunch and talk about interesting topics with each other but at the last friday of
+the month we can do whatever makes us smarter or helps us to perform Work faster or better.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+If you want to check the result out, go to [cobr.marmer.online](https://cobr.marmer.online/)

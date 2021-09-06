@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.463df561ee340f61a4640fd9aaa91e5b.js"
+  "/precache-manifest.84a12fe8cfb82ef1c94f75df52c209fe.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "code-brunch-calc"});
