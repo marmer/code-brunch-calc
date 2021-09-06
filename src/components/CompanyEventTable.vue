@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { getEvents } from '@/use-cases/CompanyEventsProvider'
+import { getEvents, updateLegalHolidays } from '@/use-cases/CompanyEventsProvider'
 import formatISO from 'date-fns/formatISO'
 import { CompanyEventType } from '@/use-cases/domain/CodeBrunchCalc'
 
@@ -22,8 +22,22 @@ export default class CompanyEventTable extends Vue {
 
   private companyEvents: Array<{ date: string, eventType: string }> = []
 
-  mounted () {
-    getEvents(this.range)
+  async mounted (): Promise<void> {
+    await this.updateEventTable()
+    try {
+      await this.tryUpdateLocalHolidays()
+      await this.updateEventTable()
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  private tryUpdateLocalHolidays () {
+    return updateLegalHolidays(this.range.startDate.getFullYear(), this.range.endDate.getFullYear())
+  }
+
+  private updateEventTable () {
+    return getEvents(this.range)
       .then(companyEvents => {
         this.companyEvents = companyEvents.map((it) => ({
           date: formatISO(it.date, { representation: 'date' }),

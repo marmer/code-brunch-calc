@@ -14,6 +14,7 @@ export interface HolidayYear {
 }
 
 export async function updateLegalHolidays (startYear: number, endYearInclusive: number = startYear): Promise<void> {
+  // TODO: marmer 06.09.2021 No need for an update if holidays are already known
   const results = await Promise.allSettled(getRangeFrom(startYear, endYearInclusive)
     .map(async year => {
       try {
