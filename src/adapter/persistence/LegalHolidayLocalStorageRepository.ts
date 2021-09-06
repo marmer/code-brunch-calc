@@ -1,9 +1,5 @@
-import { parseISO } from 'date-fns'
+import { formatISO, parseISO } from 'date-fns'
 import { HolidayYear } from '@/use-cases/CompanyEventsProvider'
-
-export async function saveLegalHolidaysToStorage (holidays: HolidayYear): Promise<void> {
-  throw new Error('Unsupported operation')
-}
 
 interface HolidayDBO {
   name: string,
@@ -13,6 +9,16 @@ interface HolidayDBO {
 interface HolidaysDBO {
   lastUpdated: string,
   holidays: HolidayDBO[]
+}
+
+export async function saveLegalHolidaysToStorage (holidays: HolidayYear): Promise<void> {
+  localStorage.setItem(`holidays-${holidays.year}`, JSON.stringify({
+    lastUpdated: formatISO(holidays.lastUpdated, { representation: 'date' }),
+    holidays: holidays.holidays.map(it => ({
+      name: it.name,
+      date: formatISO(it.date, { representation: 'date' })
+    } as HolidayDBO))
+  }))
 }
 
 export async function getLegalHolidaysFromLocalStorage (year: number): Promise<Date[]> {
