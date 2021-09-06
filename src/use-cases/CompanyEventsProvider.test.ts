@@ -8,6 +8,9 @@ jest.mock('@/use-cases/ports/persistence/HolidayRepositoryFacade')
 jest.mock('@/use-cases/ports/holiday-api/HolidayApiFacade')
 
 describe('CompanyEventsProvider', () => {
+  beforeEach(() => {
+    jest.resetAllMocks()
+  })
   describe('getEvents', () => {
     it('should serve events without the excluded ones', async () => {
       // Preparation
@@ -82,6 +85,7 @@ describe('CompanyEventsProvider', () => {
       })
 
       const saveMock = jest.spyOn(HolidayRepositoryFacade, 'save')
+      const loadMock = jest.spyOn(HolidayRepositoryFacade, 'getLegalHolidaysDates').mockResolvedValue([])
 
       // Execution
       await underTest.updateLegalHolidays(2021)
@@ -90,22 +94,70 @@ describe('CompanyEventsProvider', () => {
       expect(saveMock).toBeCalledWith(holidayYear)
     })
 
-    it('should update all legal holidays for all years', async () => {
+    // TODO: marmer 06.09.2021 don't forget to update the dates if the range changes within the UI
+
+    it('should not update all legal holidays if they are allready known', async () => {
+      // preparation
+      const holidayYear: HolidayYear = {
+        year: 2021,
+        lastUpdated: new Date(),
+        holidays: [{
+          date: new Date(2002, 6, 4),
+          name: 'birthday'
+        }]
+      }
+
+      const loadByApiMock = jest.spyOn(HolidayApiFacade, 'getLegalHolidays').mockImplementation((year: number) => {
+        if (year === 2021) {
+          return Promise.resolve(holidayYear)
+        } else {
+          fail(`Unexpected year: ${year}`)
+          throw new Error(`Unexpected year: ${year}`)
+        }
+      })
+
+      const saveMock = jest.spyOn(HolidayRepositoryFacade, 'save')
+      const loadMock = jest.spyOn(HolidayRepositoryFacade, 'getLegalHolidaysDates').mockImplementation(async (year) => {
+        if (year === 2021) {
+          return [new Date()]
+        }
+        fail('Unexpected year: ' + year)
+        throw new Error('Unexpected year: ' + year)
+      })
+
+      // Execution
+      await underTest.updateLegalHolidays(2021)
+
+      // Assertions
+      expect(saveMock).not.toBeCalled()
+      expect(loadByApiMock).not.toBeCalled()
+    })
+
+    it('should update all legal holidays for all years if not known yet', async () => {
       // preparation
       const holidays2021: HolidayYear = {
         year: 2021,
         lastUpdated: new Date(),
-        holidays: [{ date: new Date(2021, 6, 4), name: 'birthday' }]
+        holidays: [{
+          date: new Date(2021, 6, 4),
+          name: 'birthday'
+        }]
       }
       const holidays2022: HolidayYear = {
         year: 2022,
         lastUpdated: new Date(),
-        holidays: [{ date: new Date(2022, 6, 4), name: 'birthday' }]
+        holidays: [{
+          date: new Date(2022, 6, 4),
+          name: 'birthday'
+        }]
       }
       const holidays2023: HolidayYear = {
         year: 2023,
         lastUpdated: new Date(),
-        holidays: [{ date: new Date(2023, 6, 4), name: 'birthday' }]
+        holidays: [{
+          date: new Date(2023, 6, 4),
+          name: 'birthday'
+        }]
       }
 
       jest.spyOn(HolidayApiFacade, 'getLegalHolidays').mockImplementation((year: number) => {
@@ -120,6 +172,7 @@ describe('CompanyEventsProvider', () => {
           throw new Error(`Unexpected year: ${year}`)
         }
       })
+      const loadMock = jest.spyOn(HolidayRepositoryFacade, 'getLegalHolidaysDates').mockResolvedValue([])
 
       const saveMock = jest.spyOn(HolidayRepositoryFacade, 'save')
 
@@ -158,6 +211,7 @@ describe('CompanyEventsProvider', () => {
       })
 
       const saveMock = jest.spyOn(HolidayRepositoryFacade, 'save')
+      const loadMock = jest.spyOn(HolidayRepositoryFacade, 'getLegalHolidaysDates').mockResolvedValue([])
 
       // Execution
       try {

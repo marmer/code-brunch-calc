@@ -13,14 +13,20 @@ export interface HolidayYear {
   holidays: Holiday[]
 }
 
+async function holidaysKnownFor (year: number) {
+  const holidayDates = await HolidayRepository.getLegalHolidaysDates(year)
+  return holidayDates.length > 0
+}
+
 export async function updateLegalHolidays (startYear: number, endYearInclusive: number = startYear): Promise<void> {
-  // TODO: marmer 06.09.2021 No need for an update if holidays are already known
   const results = await Promise.allSettled(getRangeFrom(startYear, endYearInclusive)
     .map(async year => {
-      try {
-        await HolidayRepository.save(await HolidayApi.getLegalHolidays(year))
-      } catch (e) {
-        throw new Error(`Something went wrong while updating the legal holidays for year ${year}`)
+      if (!(await holidaysKnownFor(year))) {
+        try {
+          await HolidayRepository.save(await HolidayApi.getLegalHolidays(year))
+        } catch (e) {
+          throw new Error(`Something went wrong while updating the legal holidays for year ${year}`)
+        }
       }
     })
   )
