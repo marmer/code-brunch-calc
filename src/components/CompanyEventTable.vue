@@ -5,8 +5,8 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { DateRange, getEvents, updateLegalHolidays } from '@/use-cases/CompanyEventsProvider'
-import formatISO from 'date-fns/formatISO'
 import { CompanyEventType } from '@/use-cases/domain/CodeBrunchCalc'
+import { format } from 'date-fns'
 
 @Component
 export default class CompanyEventTable extends Vue {
@@ -46,7 +46,7 @@ export default class CompanyEventTable extends Vue {
     return getEvents(this.range)
       .then(companyEvents => {
         this.companyEvents = companyEvents.map((it) => ({
-          date: formatISO(it.date, { representation: 'date' }),
+          date: format(it.date, 'dd.MM.yyyy'),
           eventType: toTypeDisplayValue(it.type)
         }))
       })

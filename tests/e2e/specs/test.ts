@@ -40,54 +40,54 @@ describe('App Tests', () => {
     cy.findAllByText('30').last()
       .click()
 
-    cy.findByText('2021-07-30')
+    cy.findByText('30.07.2021')
       .should('not.exist')
-    cy.findByText('2021-08-06')
+    cy.findByText('06.08.2021')
       .parent()
       .within(() => {
         cy.findByText('Code Brunch')
           .should('exist')
       })
-    cy.findByText('2021-08-13')
+    cy.findByText('13.08.2021')
       .parent()
       .within(() => {
         cy.findByText('Code Brunch')
           .should('exist')
       })
-    cy.findByText('2021-08-20')
+    cy.findByText('20.08.2021')
       .parent()
       .within(() => {
         cy.findByText('Code Brunch')
           .should('exist')
       })
-    cy.findByText('2021-08-27')
+    cy.findByText('27.08.2021')
       .parent()
       .within(() => {
         cy.findByText('Innovation Friday')
           .should('exist')
       })
-    cy.findByText('2021-09-03')
+    cy.findByText('03.09.2021')
       .should('not.exist')
   })
 
   it('should be possible to navigate the dates by URL', () => {
     cy.visit('/events?startDate=2021-01-08&endDate=2021-01-08')
-    cy.findByText('2021-01-08')
+    cy.findByText('08.01.2021')
       .parent()
       .within(() => {
         cy.findByText('Code Brunch')
           .should('exist')
       })
-    cy.findByText('2021-01-15').should('not.exist')
+    cy.findByText('15.01.2021').should('not.exist')
 
     cy.visit('/events?startDate=2021-01-15&endDate=2021-01-15')
-    cy.findByText('2021-01-15')
+    cy.findByText('15.01.2021')
       .parent()
       .within(() => {
         cy.findByText('Code Brunch')
           .should('exist')
       })
-    cy.findByText('2021-01-08').should('not.exist')
+    cy.findByText('08.01.2021').should('not.exist')
   })
 
   it('should date changes should be reflected to the url', () => {
@@ -125,17 +125,17 @@ describe('App Tests', () => {
 
     cy.visit('/events?startDate=2021-09-10&endDate=2021-09-24')
 
-    cy.findByText('2021-09-17').should('exist')
+    cy.findByText('17.09.2021').should('exist')
     cy.wait('@holidayCall')
-    cy.findByText('2021-09-17').should('not.exist')
+    cy.findByText('17.09.2021').should('not.exist')
 
-    cy.findByText('2021-09-10')
+    cy.findByText('10.09.2021')
       .parent()
       .within(() => {
         cy.findByText('Code Brunch')
           .should('exist')
       })
-    cy.findByText('2021-09-24')
+    cy.findByText('24.09.2021')
       .parent()
       .within(() => {
         cy.findByText('Innovation Friday')
