@@ -1,11 +1,16 @@
 <template>
-  <b-table striped hover :items="companyEvents"/>
+  <b-container>
+    <b-checkbox v-model="codeBrunchOnly">
+      Show Code Brunch only
+    </b-checkbox>
+    <b-table striped hover :items="codeBrunchOnly ? codeBrunchOnlyEvents :companyEvents"/>
+  </b-container>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { DateRange, getEvents, updateLegalHolidays } from '@/use-cases/CompanyEventsProvider'
-import { CompanyEventType } from '@/use-cases/domain/CodeBrunchCalc'
+import { CompanyEvent, CompanyEventType } from '@/use-cases/domain/CodeBrunchCalc'
 import { format } from 'date-fns'
 
 @Component
@@ -15,14 +20,17 @@ export default class CompanyEventTable extends Vue {
     endDate: Date
   }
 
+  private codeBrunchOnly = false
+
   private companyEvents: Array<{ date: string, eventType: string }> = []
+  private codeBrunchOnlyEvents: Array<{ date: string, eventType: string }> = []
 
   async mounted (): Promise<void> {
     await this.updateContent()
   }
 
   @Watch('range', { deep: true })
-  async onRangeChange (newValue: DateRange, oldValue: DateRange) {
+  async onRangeChange (newValue: DateRange, oldValue: DateRange): Promise<void> {
     if (newValue !== oldValue) {
       await this.updateContent()
     }
@@ -38,18 +46,22 @@ export default class CompanyEventTable extends Vue {
     }
   }
 
-  private tryUpdateLocalHolidays () {
+  private async tryUpdateLocalHolidays () {
     return updateLegalHolidays(this.range.startDate.getFullYear(), this.range.endDate.getFullYear())
   }
 
-  private updateEventTable () {
-    return getEvents(this.range)
-      .then(companyEvents => {
-        this.companyEvents = companyEvents.map((it) => ({
-          date: format(it.date, 'dd.MM.yyyy'),
-          eventType: toTypeDisplayValue(it.type)
-        }))
-      })
+  private async updateEventTable () {
+    const companyEvents = await getEvents(this.range)
+    this.companyEvents = companyEvents.map(this.toTableRow)
+    this.codeBrunchOnlyEvents = companyEvents.filter(it => it.type === 'CodeBrunch')
+      .map(this.toTableRow)
+  }
+
+  private toTableRow (it: CompanyEvent) {
+    return {
+      date: format(it.date, 'dd.MM.yyyy'),
+      eventType: toTypeDisplayValue(it.type)
+    }
   }
 }
 
