@@ -1,7 +1,11 @@
 <template>
   <b-container>
-    <DateRange v-model="range"/>
-    <CompanyEventTable :range="range"/>
+    <b-card title="Company Events">
+      <DateRange v-model="range"/>
+      <b-card-body>
+        <CompanyEventTable :range="range"/>
+      </b-card-body>
+    </b-card>
   </b-container>
 </template>
 
@@ -46,7 +50,6 @@ export default class CodeBrunchCalculator extends Vue {
       endDate
     }
   }: Route): void {
-    console.log('Route changed')
     this.range = {
       startDate: typeof startDate === 'string' ? parseISO(startDate) : this.defaultStartDate,
       endDate: typeof endDate === 'string' ? parseISO(endDate) : this.defaultEndDate
@@ -60,7 +63,6 @@ export default class CodeBrunchCalculator extends Vue {
     startDate,
     endDate
   }: Range): void {
-    console.log('range changed')
     const oldQuery = this.$route.query
     const newQuery = {
       ...this.$route.query,

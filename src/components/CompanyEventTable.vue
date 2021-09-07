@@ -1,8 +1,7 @@
 <template>
   <b-container>
-    <b-form-group label="Company Events">
+
       <b-table striped hover :items="companyEvents"/>
-    </b-form-group>
 
   </b-container>
 </template>
@@ -24,15 +23,12 @@ export default class CompanyEventTable extends Vue {
 
   async mounted (): Promise<void> {
     await this.updateContent()
-    console.log('mounted table')
   }
 
   @Watch('range', { deep: true })
-  onRangeChange (newValue: DateRange, oldValue: DateRange) {
-    console.log('Prop Update Table Try')
+  async onRangeChange (newValue: DateRange, oldValue: DateRange) {
     if (newValue !== oldValue) {
-      console.log('Prop Update Table Done')
-      this.updateContent()
+      await this.updateContent()
     }
   }
 
