@@ -10,6 +10,15 @@
 
 import '@testing-library/cypress/add-commands'
 
+declare global {
+// eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace Cypress {
+    interface Chainable<Subject = any> {
+      interceptNotFoundFor (urlRegexp: RegExp | string): void;
+    }
+  }
+}
+
 //
 // -- This is a parent command --
 // Cypress.Commands.add("login", (email, password) => { ... })
@@ -25,3 +34,11 @@ import '@testing-library/cypress/add-commands'
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('interceptNotFoundFor', (urlRegexp: RegExp) => {
+  cy.intercept({
+    url: urlRegexp
+  }, {
+    statusCode: 404
+  })
+})

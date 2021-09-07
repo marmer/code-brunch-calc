@@ -3,6 +3,7 @@
 describe('App Tests', () => {
   beforeEach(() => {
     localStorage.clear()
+    cy.interceptNotFoundFor('.+')
   })
 
   it('Navigation should work between about and home', () => {
