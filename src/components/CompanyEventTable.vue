@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator'
-import { getEvents, updateLegalHolidays } from '@/use-cases/CompanyEventsProvider'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { DateRange, getEvents, updateLegalHolidays } from '@/use-cases/CompanyEventsProvider'
 import formatISO from 'date-fns/formatISO'
 import { CompanyEventType } from '@/use-cases/domain/CodeBrunchCalc'
 
@@ -23,6 +23,20 @@ export default class CompanyEventTable extends Vue {
   private companyEvents: Array<{ date: string, eventType: string }> = []
 
   async mounted (): Promise<void> {
+    await this.updateContent()
+    console.log('mounted table')
+  }
+
+  @Watch('range', { deep: true })
+  onRangeChange (newValue: DateRange, oldValue: DateRange) {
+    console.log('Prop Update Table Try')
+    if (newValue !== oldValue) {
+      console.log('Prop Update Table Done')
+      this.updateContent()
+    }
+  }
+
+  private async updateContent () {
     await this.updateEventTable()
     try {
       await this.tryUpdateLocalHolidays()

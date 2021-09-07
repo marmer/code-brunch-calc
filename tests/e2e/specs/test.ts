@@ -17,16 +17,31 @@ describe('App Tests', () => {
       .should('exist')
   })
 
-  it('Should show all special dates within the selected range', () => {
-    cy.visit('/')
+  it('Should show all (and only) special dates within only the selected range', () => {
+    cy.visit('/events?startDate=2021-01-01&endDate=2021-12-31')
     cy.findByLabelText('Start Date')
+      .click()
+    cy.findByTitle('Next month')
+      .click()
+      .click()
+      .click()
+      .click()
+      .click()
+      .click()
       .click()
     cy.findAllByText(1).first().click()
     cy.findByLabelText('End Date')
       .click()
-    cy.findByText(31).last()
+    cy.findByTitle('Previous month')
+      .click()
+      .click()
+      .click()
+      .click()
+    cy.findAllByText('30').last()
       .click()
 
+    cy.findByText('2021-07-30')
+      .should('not.exist')
     cy.findByText('2021-08-06')
       .parent()
       .within(() => {
@@ -51,6 +66,8 @@ describe('App Tests', () => {
         cy.findByText('Innovation Friday')
           .should('exist')
       })
+    cy.findByText('2021-09-03')
+      .should('not.exist')
   })
 
   it('should be possible to navigate the dates by URL', () => {
