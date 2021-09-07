@@ -1,9 +1,9 @@
 <template>
   <b-container>
-    <b-checkbox v-model="codeBrunchOnly">
-      Show Code Brunch only
+    <b-checkbox v-model="includeAllEventTypes">
+      Include all event types
     </b-checkbox>
-    <b-table striped hover :items="codeBrunchOnly ? codeBrunchOnlyEvents :companyEvents"/>
+    <b-table striped hover :items="includeAllEventTypes ? companyEvents : codeBrunchOnlyEvents "/>
   </b-container>
 </template>
 
@@ -20,7 +20,7 @@ export default class CompanyEventTable extends Vue {
     endDate: Date
   }
 
-  private codeBrunchOnly = false
+  private includeAllEventTypes = true
 
   private companyEvents: Array<{ date: string, eventType: string }> = []
   private codeBrunchOnlyEvents: Array<{ date: string, eventType: string }> = []

@@ -70,16 +70,16 @@ describe('App Tests', () => {
       .should('not.exist')
   })
 
-  it.only('Should be possible to to filter Code Brunch only', () => {
+  it('Should be possible to to filter Code Brunch only', () => {
     cy.visit('/events?startDate=2021-01-01&endDate=2021-12-31')
 
     cy.findAllByText('Code Brunch').should('exist')
     cy.findAllByText('Innovation Friday').should('exist')
-    cy.findByLabelText('Show Code Brunch only').should('not.be.checked').click()
+    cy.findByLabelText('Include all event types').should('be.checked').click()
 
     cy.findAllByText('Code Brunch').should('exist')
     cy.findAllByText('Innovation Friday').should('not.exist')
-    cy.findByLabelText('Show Code Brunch only').should('be.checked').click()
+    cy.findByLabelText('Include all event types').should('not.be.checked').click()
 
     cy.findAllByText('Code Brunch').should('exist')
     cy.findAllByText('Innovation Friday').should('exist')
