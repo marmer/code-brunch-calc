@@ -1,9 +1,5 @@
 <template>
-  <b-container>
-
       <b-table striped hover :items="companyEvents"/>
-
-  </b-container>
 </template>
 
 <script lang="ts">

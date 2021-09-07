@@ -1,12 +1,10 @@
 <template>
-  <b-container>
     <b-card title="Company Events">
       <DateRange v-model="range"/>
       <b-card-body>
         <CompanyEventTable :range="range"/>
       </b-card-body>
     </b-card>
-  </b-container>
 </template>
 
 <script lang="ts">
