@@ -94,8 +94,6 @@ describe('CompanyEventsProvider', () => {
       expect(saveMock).toBeCalledWith(holidayYear)
     })
 
-    // TODO: marmer 06.09.2021 don't forget to update the dates if the range changes within the UI
-
     it('should not update all legal holidays if they are allready known', async () => {
       // preparation
       const holidayYear: HolidayYear = {

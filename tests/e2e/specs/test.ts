@@ -143,13 +143,7 @@ describe('App Tests', () => {
       })
   })
 
-  // TODO: marmer 02.09.2021 Show Status while loading feiertage somehow without ad blocking ui
-  // TODO: marmer 02.09.2021 Handle broken connections to feiertage-api
-  // TODO: marmer 02.09.2021 Handle slow connections to feiertage-api
-  // TODO: marmer 01.09.2021 holiday exclusions
-  // TODO: marmer 02.09.2021 store allready fetched holyday exclusions
   // TODO: marmer 01.09.2021 Topics
-  // TODO: marmer 01.09.2021 Ability to format the dates to the german style
   // TODO: marmer 02.09.2021 Code coverage for Unittests
   // TODO: marmer 02.09.2021 Code coverage for Cypresstests
 })
