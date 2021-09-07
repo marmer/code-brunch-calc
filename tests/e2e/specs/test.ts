@@ -159,7 +159,6 @@ describe('App Tests', () => {
   })
 
   // TODO: marmer 01.09.2021 Topics
-  // TODO: marmer 07.09.2021 Filter Code Brunch
   // TODO: marmer 02.09.2021 Code coverage for Unittests
   // TODO: marmer 02.09.2021 Code coverage for Cypresstests
 })
