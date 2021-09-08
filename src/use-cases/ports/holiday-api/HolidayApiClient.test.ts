@@ -1,4 +1,5 @@
 import * as underTest from './HolidayApiClient'
+import each from 'jest-each'
 
 describe('HolidayApiClient', () => {
   beforeEach(() => {
@@ -38,27 +39,23 @@ describe('HolidayApiClient', () => {
     await expect(result).rejects.toStrictEqual(new Error('Error fetching holidays from API. Bad status code: 403'))
   })
 
-  describe('should throw an appropriate error if the response has a bad structure', () => {
-    [
-      '{ "title": "Fancy Day", "date": "2019-03-04" }',
-      '[{ "bla": "blub" }]',
-      '[{ "title": "Fancy Day", 42}]',
-      '[{ "title": 42, "date": "2019-03-04" }]'
-    ].forEach(body => {
-      it(`body: ${body}`, async () => {
-        // Preparation
-        fetchMock.mockIf('https://ipty.de/feiertag/api.php?do=getFeiertage&jahr=2019&loc=BE&outformat=Y-m-d',
-          async () => ({
-            body,
-            status: 200
-          }))
+  each([
+    '{ "title": "Fancy Day", "date": "2019-03-04" }',
+    '[{ "bla": "blub" }]',
+    '[{ "title": "Fancy Day", "date": 42}]',
+    '[{ "title": 42, "date": "2019-03-04" }]'
+  ]).it('Should throw an appropriate error if the response has a bad structure: %s', async body => {
+    // Preparation
+    fetchMock.mockIf('https://ipty.de/feiertag/api.php?do=getFeiertage&jahr=2019&loc=BE&outformat=Y-m-d',
+      async () => ({
+        body,
+        status: 200
+      }))
 
-        // Execution
-        const result = underTest.fetchHolidays(2019)
+    // Execution
+    const result = underTest.fetchHolidays(2019)
 
-        // Assertion
-        await expect(result).rejects.toStrictEqual(new Error('Error fetching holidays from API. Response has a bad structure'))
-      })
-    })
+    // Assertion
+    await expect(result).rejects.toStrictEqual(new Error('Error fetching holidays from API. Response has a bad structure'))
   })
 })
