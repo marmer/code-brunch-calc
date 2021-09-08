@@ -36,7 +36,3 @@ export default class DateRange extends Vue {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

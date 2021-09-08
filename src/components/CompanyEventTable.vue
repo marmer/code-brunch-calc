@@ -76,7 +76,3 @@ function toTypeDisplayValue (type: CompanyEventType) {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

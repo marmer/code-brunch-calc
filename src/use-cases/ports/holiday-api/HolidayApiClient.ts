@@ -5,5 +5,5 @@ export async function fetchHolidays (year: number): Promise<[{ title: string, da
   if (response.status !== 200) {
     throw new Error(`Error fetching holidays from API. Bad status code: ${response.status}`)
   }
-  return await response.json()
+  return response.json()
 }
