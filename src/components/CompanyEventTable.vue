@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { DateRange, getEvents, updateLegalHolidays } from '@/use-cases/CompanyEventsProvider'
+import { getEvents, updateLegalHolidays } from '@/use-cases/CompanyEventsProvider'
 import { CompanyEvent, CompanyEventType } from '@/use-cases/domain/CodeBrunchCalc'
 import { format } from 'date-fns'
 
@@ -30,7 +30,7 @@ export default class CompanyEventTable extends Vue {
   }
 
   @Watch('range', { deep: true })
-  async onRangeChange (newValue: DateRange, oldValue: DateRange): Promise<void> {
+  async onRangeChange (): Promise<void> {
     await this.updateContent()
   }
 
