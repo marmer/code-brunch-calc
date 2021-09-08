@@ -1,5 +1,4 @@
 {
   "extends": "@istanbuljs/nyc-config-typescript",
-  "extension": [ ".js", ".jsx", ".ts", ".tsx", ".vue" ],
-  "exclude":["src/registerServiceWorker.ts"]
+  "extension": [ ".js", ".jsx", ".ts", ".tsx", ".vue" ]
 }
