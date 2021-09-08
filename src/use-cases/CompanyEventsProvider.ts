@@ -53,16 +53,8 @@ function getYearsOf ({
 }
 
 async function getExclusionsFor (range: DateRange): Promise<Date[]> {
-  const allYears = await Promise.allSettled(getYearsOf(range)
-    .map(year => HolidayRepository.getLegalHolidaysDates(year)))
-
-  return allYears.map((it: PromiseFulfilledResult<Date[]> | PromiseRejectedResult) => {
-    if (it.status === 'fulfilled') {
-      return it.value
-    } else {
-      throw it.reason
-    }
-  }).flat()
+  return (await Promise.all(getYearsOf(range)
+    .map(year => HolidayRepository.getLegalHolidaysDates(year)))).flat()
 }
 
 export async function getEvents (range: DateRange): Promise<CompanyEvent[]> {
