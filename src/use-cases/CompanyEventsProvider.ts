@@ -18,7 +18,7 @@ async function holidaysKnownFor (year: number) {
   return holidayDates.length > 0
 }
 
-export async function updateLegalHolidays (startYear: number, endYearInclusive: number = startYear): Promise<void> {
+export async function updateLegalHolidays (startYear: number, endYearInclusive: number): Promise<void> {
   const results = await Promise.allSettled(getRangeFrom(startYear, endYearInclusive)
     .map(async year => {
       if (!(await holidaysKnownFor(year))) {

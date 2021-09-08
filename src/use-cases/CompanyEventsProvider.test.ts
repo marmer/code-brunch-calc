@@ -88,7 +88,7 @@ describe('CompanyEventsProvider', () => {
       const loadMock = jest.spyOn(HolidayRepositoryFacade, 'getLegalHolidaysDates').mockResolvedValue([])
 
       // Execution
-      await underTest.updateLegalHolidays(2021)
+      await underTest.updateLegalHolidays(2021, 2021)
 
       // Assertions
       expect(saveMock).toBeCalledWith(holidayYear)
@@ -124,7 +124,7 @@ describe('CompanyEventsProvider', () => {
       })
 
       // Execution
-      await underTest.updateLegalHolidays(2021)
+      await underTest.updateLegalHolidays(2021, 2021)
 
       // Assertions
       expect(saveMock).not.toBeCalled()
