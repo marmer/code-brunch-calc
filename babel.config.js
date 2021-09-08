@@ -1,12 +1,6 @@
 const plugins = []
 if (process.env.CYPRESS) {
-  plugins.push([
-    'babel-plugin-istanbul', {
-      // specify some options for NYC instrumentation here
-      // like tell it to instrument both JavaScript and Vue files
-      extension: ['.js', '.jsx', '.vue', '.ts', '.tsx']
-    }
-  ])
+  plugins.push('istanbul')
 }
 
 module.exports = {
