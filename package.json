@@ -63,7 +63,6 @@
     "eslint-plugin-vue": "^7.17.0",
     "jest": "^27.0.6",
     "jest-fetch-mock": "^3.0.3",
-    "jest-each": "^27.1.1",
     "node-localstorage": "^2.2.1",
     "sass": "^1.38.2",
     "sass-loader": "^10.2.0",

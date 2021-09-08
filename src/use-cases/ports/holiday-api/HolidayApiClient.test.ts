@@ -1,5 +1,4 @@
 import * as underTest from './HolidayApiClient'
-import each from 'jest-each'
 
 describe('HolidayApiClient', () => {
   beforeEach(() => {
@@ -39,12 +38,12 @@ describe('HolidayApiClient', () => {
     await expect(result).rejects.toStrictEqual(new Error('Error fetching holidays from API. Bad status code: 403'))
   })
 
-  each([
+  it.each([
     '{ "title": "Fancy Day", "date": "2019-03-04" }',
     '[{ "bla": "blub" }]',
     '[{ "title": "Fancy Day", "date": 42}]',
     '[{ "title": 42, "date": "2019-03-04" }]'
-  ]).it('Should throw an appropriate error if the response has a bad structure: %s', async body => {
+  ])('Should throw an appropriate error if the response has a bad structure: %s', async (body: string) => {
     // Preparation
     fetchMock.mockIf('https://ipty.de/feiertag/api.php?do=getFeiertage&jahr=2019&loc=BE&outformat=Y-m-d',
       async () => ({
