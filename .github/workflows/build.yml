@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [ 12.x, 14.x, 16.x ]
+        node-version: [ 14.x ]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -35,12 +35,17 @@ jobs:
         if: success()
       - run: npm run test:e2e:ci
         if: success()
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: cypress-videos
+          path: tests/e2e/videos
       - run: npm install -g sonarqube-scanner
-        if: success() && matrix.node-version == '12.x'
+        if: success() && matrix.node-version == '14.x'
       - run: sonar-scanner -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: success() && matrix.node-version == '12.x'
+        if: success() && matrix.node-version == '14.x'
 #      - name: SonarCloud Scan
 #        uses: SonarSource/sonarcloud-github-action@master
 #        env:
