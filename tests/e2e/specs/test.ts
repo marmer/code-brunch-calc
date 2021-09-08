@@ -159,7 +159,29 @@ describe('App Tests', () => {
       })
   })
 
+  it('should show an error if there was a problem updateing the legal holidays', () => {
+    // Preparation
+    cy.intercept('GET', 'https://ipty.de/feiertag/api.php?do=getFeiertage&jahr=2021&loc=BE&outformat=Y-m-d', {
+      statusCode: 404
+    }).as('holidayCall')
+
+    // Execution
+    cy.visit('/events?startDate=2021-09-10&endDate=2021-09-24')
+
+    // Assertion
+    cy.findByTitle('Errormessage')
+      .within(() => {
+        cy.findByText('Error: Something went wrong while updating the legal holidays for year 2021').should('exist')
+      })
+
+    cy.wait(4999)
+    cy.findByTitle('Errormessage')
+      .within(() => {
+        cy.findByText('Error: Something went wrong while updating the legal holidays for year 2021').should('exist')
+      })
+    cy.wait(5000)
+    cy.findByTitle('Errormessage').should('not.exist')
+  })
+
   // TODO: marmer 01.09.2021 Topics
-  // TODO: marmer 02.09.2021 Code coverage for Unittests
-  // TODO: marmer 02.09.2021 Code coverage for Cypresstests
 })

@@ -1,5 +1,14 @@
 <template>
   <b-container>
+    <b-alert
+      title="Errormessage"
+      :show="errorMessage ? 5:0"
+      variant="danger"
+      fade
+      @dismissed="clearErrorMessage"
+    >
+      {{ errorMessage }}
+    </b-alert>
     <b-checkbox v-model="includeAllEventTypes">
       Include all event types
     </b-checkbox>
@@ -20,6 +29,8 @@ export default class CompanyEventTable extends Vue {
     endDate: Date
   }
 
+  private errorMessage: string | null = null
+
   private includeAllEventTypes = true
 
   private companyEvents: Array<{ date: string, eventType: string }> = []
@@ -27,6 +38,10 @@ export default class CompanyEventTable extends Vue {
 
   async mounted (): Promise<void> {
     await this.updateContent()
+  }
+
+  private clearErrorMessage () {
+    this.errorMessage = null
   }
 
   @Watch('range', { deep: true })
@@ -40,7 +55,7 @@ export default class CompanyEventTable extends Vue {
       await this.tryUpdateLocalHolidays()
       await this.updateEventTable()
     } catch (e) {
-      console.error(e)
+      this.errorMessage = `${e}`
     }
   }
 
