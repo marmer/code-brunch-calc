@@ -31,10 +31,7 @@ jobs:
             ~/.cache/Cypress
           key: cypress-${{ hashFiles('package-lock.json') }}
       - run: npm install
-      - run: npm run test:unit
-        if: success()
-      - run: npm run test:e2e:ci
-        if: success()
+      - run: npm run cover
       - uses: actions/upload-artifact@v1
         if: failure()
         with:
