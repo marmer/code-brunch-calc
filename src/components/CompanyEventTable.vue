@@ -31,9 +31,7 @@ export default class CompanyEventTable extends Vue {
 
   @Watch('range', { deep: true })
   async onRangeChange (newValue: DateRange, oldValue: DateRange): Promise<void> {
-    if (newValue !== oldValue) {
-      await this.updateContent()
-    }
+    await this.updateContent()
   }
 
   private async updateContent () {
@@ -52,12 +50,12 @@ export default class CompanyEventTable extends Vue {
 
   private async updateEventTable () {
     const companyEvents = await getEvents(this.range)
-    this.companyEvents = companyEvents.map(this.toTableRow)
+    this.companyEvents = companyEvents.map(CompanyEventTable.toTableRow)
     this.codeBrunchOnlyEvents = companyEvents.filter(it => it.type === 'CodeBrunch')
-      .map(this.toTableRow)
+      .map(CompanyEventTable.toTableRow)
   }
 
-  private toTableRow (it: CompanyEvent) {
+  private static toTableRow (it: CompanyEvent) {
     return {
       date: format(it.date, 'dd.MM.yyyy'),
       eventType: toTypeDisplayValue(it.type)
