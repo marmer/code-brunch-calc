@@ -1,5 +1,4 @@
 {
   "extends": "@istanbuljs/nyc-config-typescript",
-  "extension": [ ".js", ".jsx", ".ts", ".tsx", ".vue" ],
-  "report-dir": "coverage/e2e"
+  "extension": [ ".js", ".jsx", ".ts", ".tsx", ".vue" ]
 }
