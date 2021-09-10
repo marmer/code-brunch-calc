@@ -7,12 +7,13 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:unit:watch": "vue-cli-service test:unit --watch",
-    "test:e2e": "cross-env CYPRESS=true vue-cli-service test:e2e --coverage",
+    "test:e2e": "cross-env CYPRESS=true vue-cli-service test:e2e",
     "test:e2e:ci": "cross-env CYPRESS=true vue-cli-service test:e2e --headless",
     "cover": "npm run cover:unit && npm run cover:e2e && npm run cover:report",
-    "cover:unit": "nyc --silent npm run test:unit",
+    "cover:unit": "vue-cli-service test:unit --coverage",
     "cover:e2e": "nyc --silent --no-clean npm run test:e2e:ci",
     "cover:report": "nyc report --reporter=lcov --reporter=text",
+    "postcover:report": "./node_modules/.bin/lcov-result-merger ./coverage/**/lcov.info ./coverage/lcov.info",
     "lint": "vue-cli-service lint",
     "lint:fix": "vue-cli-service lint --fix",
     "prepublish_preparation": "npm run build",
@@ -33,6 +34,7 @@
     "date-fns": "^2.23.0"
   },
   "devDependencies": {
+    "lcov-result-merger": "^3.1.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@cypress/code-coverage": "^3.9.10",
     "@testing-library/cypress": "^8.0.0",

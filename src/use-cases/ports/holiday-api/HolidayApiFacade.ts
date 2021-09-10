@@ -1,5 +1,5 @@
 import { HolidayYear } from '@/use-cases/CompanyEventsProvider'
-import { fetchHolidays } from '@/use-cases/ports/holiday-api/HolidayApiClient'
+import { fetchHolidays } from '@/adapter/holiday-api/HolidayApiClient'
 import { parseISO } from 'date-fns'
 
 export async function getLegalHolidays (year: number): Promise<HolidayYear> {

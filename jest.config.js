@@ -4,5 +4,11 @@ module.exports = {
   testMatch: [
     '<rootDir>/tests/unit/**/*.(test|spec).(js|jsx|ts|tsx)',
     '<rootDir>/src/**/*.(test|spec).(js|jsx|ts|tsx)'
-  ]
+  ],
+  coverageReporters: [
+    'cobertura',
+    'lcov',
+    'text'
+  ],
+  coverageDirectory: 'coverage/unit'
 }
