@@ -136,7 +136,8 @@ describe('App Tests', () => {
         ],
         dayName: 'Monday',
         tagName: 'Montag'
-      }]
+      }],
+      delay: 100
     }).as('holidayCall')
 
     cy.visit('/events?startDate=2021-09-10&endDate=2021-09-24')
