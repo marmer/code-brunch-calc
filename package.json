@@ -13,7 +13,6 @@
     "cover:unit": "vue-cli-service test:unit --coverage",
     "cover:e2e": "nyc --silent --no-clean npm run test:e2e:ci",
     "cover:report": "nyc report --reporter=lcov --reporter=text",
-    "postcover:report": "./node_modules/.bin/lcov-result-merger ./coverage/**/lcov.info ./coverage/lcov.info",
     "lint": "vue-cli-service lint",
     "lint:fix": "vue-cli-service lint --fix",
     "prepublish_preparation": "npm run build",
@@ -34,7 +33,6 @@
     "date-fns": "^2.23.0"
   },
   "devDependencies": {
-    "lcov-result-merger": "^3.1.0",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@cypress/code-coverage": "^3.9.10",
     "@testing-library/cypress": "^8.0.0",
